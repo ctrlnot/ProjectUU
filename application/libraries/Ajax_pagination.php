@@ -15,7 +15,7 @@ class Ajax_pagination{
     var $base_url        = '';
     var $total_rows      = '';
     var $per_page        = 10;
-    var $num_links       =  2;
+    var $num_links       =  4;
     var $cur_page        =  0;
     var $first_link      = 'First';
     var $next_link       = '&#187;';
@@ -90,8 +90,8 @@ class Ajax_pagination{
         $num_pages = ceil($this->total_rows / $this->per_page);
 
         // Is there only one page? Hm... nothing more to do here then.
-        if ($num_pages == 1){
-            $info = 'Showing : ' . $this->total_rows;
+        if ($num_pages <= 1){
+            $info = '';
             return $info;
         }
 
@@ -143,7 +143,7 @@ class Ajax_pagination{
             $info .= $this->total_rows;
 
             $info .= ' of ' . $this->total_rows . ' | ';
-            $output .= $info;
+            //$output .= $info; Modified: removed this :(
         }
 
         // Render the "First" link
@@ -185,7 +185,8 @@ class Ajax_pagination{
         }
 
         // Render the "Last" link
-        if (($this->cur_page + $this->num_links) < $num_pages){
+        // Modified from: if (($this->cur_page + $this->num_links) < $num_pages){
+        if ($this->cur_page < $num_pages){
             $i = (($num_pages * $this->per_page) - $this->per_page);
             $output .= $this->last_tag_open . $this->getAJAXlink( $i, $this->last_link ) . $this->last_tag_close;
         }

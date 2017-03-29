@@ -1,6 +1,7 @@
 $(document).ready(function() {
     $('input.currency').currencyInput();
 
+    // Add member
     $("#memberForm").submit(function(e) {
         e.preventDefault();
 
@@ -25,6 +26,26 @@ $(document).ready(function() {
     });
 });
 
+// Filter table
+function searchFilter(page_num) {
+    page_num = page_num ? page_num : 0;
+    var keywords = $('#keywords').val();
+    var sortBy = $('#sortBy').val();
+    $.ajax({
+        type: 'POST',
+        url: 'members/ajaxPaginationData/'+page_num,
+        data:'page='+page_num+'&keywords='+keywords+'&sortBy='+sortBy,
+        beforeSend: function () {
+            $('.loading').show();
+        },
+        success: function (html) {
+            $('#members-table').html(html);
+            $('.loading').fadeOut("slow");
+        }
+    });
+}
+
+// Function of Input type number value modified
 (function($) {
     $.fn.currencyInput = function() {
         this.each(function() {
