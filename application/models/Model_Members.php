@@ -13,7 +13,7 @@ class Model_Members extends CI_Model {
                 'm_initial_deposit' => $this->input->post('initial'),
                 'm_contact' => $this->input->post('contact'),
                 'm_date_registered' => $year,
-                'm_goal_progress' => 0,
+                'm_goal_progress' => $this->input->post('initial'),
                 'm_borrowed' => 0,
                 'm_contributed' => 0
             );

@@ -8,9 +8,9 @@ class Home extends CI_Controller {
 
     public function index() {
         if($this->session->userdata('token')){
-            $this->load->view('header', getHeaderInfo("Home", "header"));
+            $this->load->view('view_header', getHeaderInfo("Home", "home"));
             $this->load->view('view_home');
-            $this->load->view('footer', getFooterInfo("home"));
+            $this->load->view('view_footer', getFooterInfo("home"));
         } else {
             redirect(base_url('login'));
         }

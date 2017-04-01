@@ -1,5 +1,5 @@
 <?php if(!empty($members)):  ?>
-<table class="table table-striped">
+<table class="table">
     <thead>
         <tr>
             <th>No.</th>

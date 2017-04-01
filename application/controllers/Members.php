@@ -29,9 +29,9 @@ class Members extends CI_Controller {
             //get the members data
             $data['members'] = $this->Model_Members->getMembersRows(array('limit'=>$this->perPage));
 
-            $this->load->view('header', getHeaderInfo("Members", "header"));
+            $this->load->view('view_header', getHeaderInfo("Members", "members"));
             $this->load->view('view_members_default', $data);
-            $this->load->view('footer', getFooterInfo("members"));
+            $this->load->view('view_footer', getFooterInfo("members"));
         } else {
             redirect(base_url('login'));
         }

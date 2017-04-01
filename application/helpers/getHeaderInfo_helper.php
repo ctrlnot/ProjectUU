@@ -7,6 +7,7 @@ if(!function_exists('getHeaderInfo')) {
             'params' => array(
                     array(
                         'title' => $title,
+                        'headerCss' => "assets/css/header.css",
                         'css' => "assets/css/" . $css . ".css"
                         )
                 )
