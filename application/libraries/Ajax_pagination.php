@@ -11,31 +11,31 @@
  * @TutorialLink http://www.codexworld.com/ajax-pagination-in-codeigniter-framework/
  */
 class Ajax_pagination{
-
+    // Modified for design
     var $base_url        = '';
     var $total_rows      = '';
     var $per_page        = 10;
     var $num_links       =  4;
     var $cur_page        =  0;
     var $first_link      = 'First';
-    var $next_link       = '&#187;';
-    var $prev_link       = '&#171;';
+    var $next_link       = 'Next &#187;';
+    var $prev_link       = '&#171; Prev';
     var $last_link       = 'Last';
     var $uri_segment     = 3;
     var $full_tag_open   = '<div class="pagination">';
     var $full_tag_close  = '</div>';
-    var $first_tag_open  = '';
-    var $first_tag_close = '&nbsp;';
-    var $last_tag_open   = '&nbsp;';
-    var $last_tag_close  = '';
-    var $cur_tag_open    = '&nbsp;<b>';
-    var $cur_tag_close   = '</b>';
-    var $next_tag_open   = '&nbsp;';
-    var $next_tag_close  = '&nbsp;';
-    var $prev_tag_open   = '&nbsp;';
-    var $prev_tag_close  = '';
-    var $num_tag_open    = '&nbsp;';
-    var $num_tag_close   = '';
+    var $first_tag_open  = '<span class="tag-hightlight">';
+    var $first_tag_close = '</span>';
+    var $last_tag_open   = '<span class="tag-hightlight">';
+    var $last_tag_close  = '</span>';
+    var $cur_tag_open    = '<span class="curr-hightlight">';
+    var $cur_tag_close   = '</span>';
+    var $next_tag_open   = '<span class="tag-hightlight">';
+    var $next_tag_close  = '</span>';
+    var $prev_tag_open   = '<span class="tag-hightlight">';
+    var $prev_tag_close  = '</span>';
+    var $num_tag_open    = '<span>';
+    var $num_tag_close   = '</span>';
     var $target          = '';
     var $anchor_class    = '';
     var $show_count      = true;
@@ -148,18 +148,14 @@ class Ajax_pagination{
 
         // Render the "First" link
         if  ($this->cur_page > $this->num_links){
-            $output .= $this->first_tag_open 
-                    . $this->getAJAXlink( '' , $this->first_link)
-                    . $this->first_tag_close;
+            $output .= $this->getAJAXlink($this->first_tag_open, $this->first_tag_close, '', $this->first_link);
         }
 
         // Render the "previous" link
         if  ($this->cur_page != 1){
             $i = $uri_page_number - $this->per_page;
             if ($i == 0) $i = '';
-            $output .= $this->prev_tag_open 
-                    . $this->getAJAXlink( $i, $this->prev_link )
-                    . $this->prev_tag_close;
+            $output .= $this->getAJAXlink($this->prev_tag_open, $this->prev_tag_close, $i, $this->prev_link);
         }
 
         // Write the digit links
@@ -167,28 +163,24 @@ class Ajax_pagination{
             $i = ($loop * $this->per_page) - $this->per_page;    
             if ($i >= 0){
                 if ($this->cur_page == $loop){
-                    $output .= $this->cur_tag_open.$loop.$this->cur_tag_close; // Current page
+                    $output .= '<span class="curr-hightlight">' . $loop . '</span>'; // Current page
                 }else{
                     $n = ($i == 0) ? '' : $i;
-                    $output .= $this->num_tag_open
-                        . $this->getAJAXlink( $n, $loop )
-                        . $this->num_tag_close;
+                    $output .= $this->getAJAXlink($this->num_tag_open, $this->num_tag_close, $n, $loop );
                 }
             }
         }
 
         // Render the "next" link
         if ($this->cur_page < $num_pages){
-            $output .= $this->next_tag_open 
-                . $this->getAJAXlink( $this->cur_page * $this->per_page , $this->next_link )
-                . $this->next_tag_close;
+            $output .= $this->getAJAXlink($this->next_tag_open, $this->next_tag_close, $this->cur_page * $this->per_page, $this->next_link );
         }
 
         // Render the "Last" link
         // Modified from: if (($this->cur_page + $this->num_links) < $num_pages){
         if ($this->cur_page < $num_pages){
             $i = (($num_pages * $this->per_page) - $this->per_page);
-            $output .= $this->last_tag_open . $this->getAJAXlink( $i, $this->last_link ) . $this->last_tag_close;
+            $output .= $this->getAJAXlink($this->last_tag_open, $this->last_tag_close, $i, $this->last_link );
         }
 
         // Kill double slashes.  Note: Sometimes we can end up with a double slash
@@ -218,8 +210,9 @@ class Ajax_pagination{
         return $output;
     }
 
-    function getAJAXlink($count, $text) {
+    // Modified for easy span hover + click ..
+    function getAJAXlink($opening, $ending, $count, $text) {
         $pageCount = $count?$count:0;
-        return '<a href="javascript:void(0);"' . $this->anchor_class . ' onclick="'.$this->link_func.'('.$pageCount.')">'. $text .'</a>';
+        return '<a href="#members-table"' . $this->anchor_class . ' onclick="'.$this->link_func.'('.$pageCount.')">'. $opening . $text . $ending . '</a>';
     }
 }
