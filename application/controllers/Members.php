@@ -7,7 +7,7 @@ class Members extends CI_Controller {
 
         $this->load->model('Model_Members');
         $this->load->library('Ajax_pagination');
-        $this->perPage = 10;
+        $this->perPage = 5;
     }
 
     public function index() {

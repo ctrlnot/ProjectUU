@@ -4,10 +4,15 @@
             <div class="members-info">
                 <h3><span class="glyphicon glyphicon-user"></span> &nbsp;MEMBERS INFO</h3>
                 <div class="row">
-                    <div class="col-md-3 col-md-push-7">
+                    <div class="col-md-3">
+                        <button class="add-member" data-toggle="modal" data-target="#myModal">
+                            Add Member
+                        </button>
+                    </div>
+                    <div class="col-md-3">
                         <input type="text" id="keywords" class="search" placeholder="Search member" onkeyup="searchFilter()">
                     </div>
-                    <div class="col-md-2 col-md-push-7">
+                    <div class="col-md-2">
                         <select id="sortBy" class="sortBy" onchange="searchFilter()">
                             <option disabled>Sort By</option>
                             <option value="a-z" selected>A-Z</option>
@@ -22,25 +27,32 @@
                     <table class="table text-nowrap table-borderless">
                         <thead>
                             <tr>
-                                <!-- <th>#</th> -->
-                                <th style="width:12%">Member Name</th>
-                                <th style="width:10%">Initial Deposit</th>
+                                <th>Member Name</th>
+                                <th>Initial Deposit</th>
                                 <th style="width:20%">Goal Progress</th>
-                                <th style="width:15%">Borrowed Balance</th>
-                                <th style="width:15%">Contributed Money</th>
-                                <th style="width:15%">Contact Number</th>
-                                <th style="width:15%">Date Joined</th>
+                                <th>Borrowed Balance</th>
+                                <th>Contributed Money</th>
+                                <th>Contact Number</th>
+                                <th>Date Joined</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php $num = 1; ?>
                             <?php foreach($members as $member): ?>
                                 <?php 
                                     $date = new DateTime($member['m_date_registered']);
                                     $formattedDate = $date->format('F d, Y');
+                                    $status = '';
+
+                                    if(!$member['m_status']) {
+                                        $status = 'member-status-inactive';
+                                    } else {
+                                        $member['m_borrowed'] > 1 ? $status = 'member-status-indebt' : $status = 'member-status-clear'; 
+                                    }
+
                                     echo
                                     '<tr>' .
-                                        '<td class="member-status-indebt"><div>' . $member['m_name'] . '</div></td>' .
+                                        '<td class="' . $status . '"><div>' . $member['m_name'] . '</div></td>' .
                                         '<td><div>&#8369; ' . number_format($member['m_initial_deposit'], 2, '.', ',') . '</div></td>' .
                                         '<td><div>' .
                                             '<div class="progress">
@@ -53,9 +65,8 @@
                                         '<td><div>&#8369; ' . number_format($member['m_contributed'], 2, '.', ',') . '</div></td>' .
                                         '<td><div>' . $member['m_contact'] . '</div></td>' . 
                                         '<td><div>' . $formattedDate . '</div></td>' .
+                                        '<td><div> <span class="glyphicon glyphicon-remove-circle"></span> </div></td>' .
                                     '</tr>';
-
-                                    $num++;
                                 ?>
                             <?php endforeach; ?>
                         </tbody>
@@ -67,8 +78,28 @@
                 </div>
             </div>
         </div>
+        <div id="myModal" class="modal fade" role="dialog">
+            <div class="modal-dialog modal-sm">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h3><span class="glyphicon glyphicon-plus-sign"></span> &nbsp; ADD MEMBER</h3>
+                  </div>
+                  <div class="modal-body">
+                    <form id="memberForm" action="members/validate" method="post">
+                        <input type="text" name="name" class="name" placeholder="Name">
+                        <input type="number" name="initial" class="currency" min="0" value="100.00">
+                        <input type="text" name="contact" class="contact" placeholder="Contact Number">
+                        <input type="submit" class="submit-member" value="ADD MEMBER">
+                    </form>
+                  </div>
+                </div>
+
+            </div>
+        </div>
         <!-- <div class="col-md-3 right-info">
-            <div class="add-member">
                 <h3><span class="glyphicon glyphicon-plus-sign"></span> &nbsp; ADD MEMBER</h3>
                 <form id="memberForm" action="members/validate" method="post">
                     <input type="text" name="name" class="name" placeholder="Name">
@@ -76,7 +107,6 @@
                     <input type="text" name="contact" class="contact" placeholder="Contact Number">
                     <input type="submit" class="submit-member" value="ADD MEMBER">
                 </form>
-            </div>
         </div> -->
     </div>
     

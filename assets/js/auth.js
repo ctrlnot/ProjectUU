@@ -13,7 +13,7 @@ $(document).ready(function() {
                 if(res.success) {
                     alert("success!");
                     setTimeout(function(){
-                        window.location.href = "http://localhost/ProjectUU/";
+                        window.location.href = "http://192.168.1.2/ProjectUU/";
                     }, 1500);
                 } else {
                     alert("nope :(");

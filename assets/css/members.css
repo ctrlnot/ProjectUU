@@ -10,14 +10,13 @@
     padding-right: 10px;
 }
 
-.members-info,
-.add-member {
+.members-info {
     padding: 15px 20px;
     margin: 25px auto;
 }
 
 .members-info h3 {
-    margin-bottom: 0;
+    margin: 0;
     padding-bottom: 5px;
 }
 
@@ -35,7 +34,8 @@
 .contact,
 .submit-member,
 .search,
-.sortBy {
+.sortBy,
+.add-member {
     display: block;
     margin: 15px auto;
     padding: 8px;
@@ -77,6 +77,11 @@
 
 /* Custom Table and Content Style */
 
+.add-member {
+    width: 100%;
+    border-collapse: collapse;
+}
+
 .progress {
     height: 10px;
     border-radius: 0;
@@ -91,6 +96,7 @@
 .table-borderless {
     border-collapse: separate;
     border-spacing: 0 1em;
+    overflow-y: hidden;
 }
 
 .table-borderless > tbody > tr > td,
@@ -103,10 +109,12 @@
 .table-borderless > tbody > tr  {
     background: #FAFAFA;
     margin-bottom: 10px;
+    transition: 0.3s all ease;
 }
 
 .table-borderless > tbody > tr:hover {
     background: #FFF;
+    box-shadow: 0 0 5px #666;
 }
 
 .table-borderless > tbody > tr > td {
@@ -125,12 +133,16 @@
     padding: 12px 10px;
 }
 
-.table-borderless tbody tr .member-status-paid {
+.table-borderless tbody tr .member-status-clear {
     border-left: 5px solid #76C80E;
 }
 
 .table-borderless tbody tr .member-status-indebt {
     border-left: 5px solid #FE5E3A;
+}
+
+.table-borderless tbody tr .member-status-inactive {
+    border-left: 5px solid #9FA1B0;
 }
 
 .progress-bar-bg {

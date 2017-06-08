@@ -76,9 +76,9 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'localhost',
-	'username' => 'root',
-	'password' => 'zxc789ampersandsign',
+	'hostname' => '192.168.1.2',
+	'username' => 'db_umpukan',
+	'password' => 'asda123',
 	'database' => 'db_projectuu',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
@@ -97,10 +97,10 @@ $db['default'] = array(
 );
 
 $db['pdo'] = array(
-	'dsn'	=> 'mysql:dbname=db_projectuu;host=localhost;charset=utf8;',
-	'hostname' => 'localhost',
-	'username' => 'root',
-	'password' => 'zxc789ampersandsign',
+	'dsn'	=> 'mysql:dbname=db_projectuu;host=192.168.1.2;charset=utf8;',
+	'hostname' => '192.168.1.2',
+	'username' => 'db_umpukan',
+	'password' => 'asda123',
 	'database' => 'db_projectuu',
 	'dbdriver' => 'pdo',
 	'dbprefix' => '',

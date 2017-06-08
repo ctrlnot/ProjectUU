@@ -24,7 +24,7 @@
         <ul class="main-menu">
             <li><a href="home"><span class="glyphicon glyphicon-dashboard" aria-hidden="true"></span> <p>Dashboard</p></a></li>
             <li><a href="members"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> <p>Members</p></a></li>
-            <li><a href="#"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> <p>Transactions</p></a></li>
+            <li><a href="transactions"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> <p>Transactions</p></a></li>
             <li><a href="#"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> <p>Calendar</p></a></li>
             <li><a href="#"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> <p>Logs</p></a></li>
             <li><a href="#"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> <p>Settings</p></a></li>

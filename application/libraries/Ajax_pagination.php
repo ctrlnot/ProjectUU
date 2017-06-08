@@ -15,7 +15,7 @@ class Ajax_pagination{
     var $base_url        = '';
     var $total_rows      = '';
     var $per_page        = 10;
-    var $num_links       =  4;
+    var $num_links       =  3;
     var $cur_page        =  0;
     var $first_link      = 'First';
     var $next_link       = 'Next &#187;';
@@ -147,7 +147,7 @@ class Ajax_pagination{
         }
 
         // Render the "First" link
-        if  ($this->cur_page > $this->num_links){
+        if  ($this->cur_page > 1){
             $output .= $this->getAJAXlink($this->first_tag_open, $this->first_tag_close, '', $this->first_link);
         }
 
@@ -156,6 +156,12 @@ class Ajax_pagination{
             $i = $uri_page_number - $this->per_page;
             if ($i == 0) $i = '';
             $output .= $this->getAJAXlink($this->prev_tag_open, $this->prev_tag_close, $i, $this->prev_link);
+        }
+
+        // Modified: Added custom 1 ... link
+        if($this->cur_page > $this->num_links + 2) {
+            $output .= $this->getAJAXlink($this->num_tag_open, $this->num_tag_close, '', 1);
+            $output .= $this->createDotDotDot();
         }
 
         // Write the digit links
@@ -169,6 +175,13 @@ class Ajax_pagination{
                     $output .= $this->getAJAXlink($this->num_tag_open, $this->num_tag_close, $n, $loop );
                 }
             }
+        }
+
+        // Modified: Added ... Last link
+        if($this->cur_page < $num_pages - $this->num_links) {
+            $i = (($num_pages * $this->per_page) - $this->per_page);
+            $output .= $this->createDotDotDot();
+            $output .= $this->getAJAXlink($this->num_tag_open, $this->num_tag_close, $i, $num_pages);
         }
 
         // Render the "next" link
@@ -213,6 +226,11 @@ class Ajax_pagination{
     // Modified for easy span hover + click ..
     function getAJAXlink($opening, $ending, $count, $text) {
         $pageCount = $count?$count:0;
-        return '<a href="#members-table"' . $this->anchor_class . ' onclick="'.$this->link_func.'('.$pageCount.')">'. $opening . $text . $ending . '</a>';
+        return '<a href="javascript:void(0);"' . $this->anchor_class . ' onclick="'.$this->link_func.'('.$pageCount.')">'. $opening . $text . $ending . '</a>';
+    }
+
+    // Modified to create 1 ... and ... 10 links
+    function createDotDotDot() {
+        return '<span>&nbsp;...&nbsp;</span>';
     }
 }
